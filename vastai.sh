@@ -5,30 +5,30 @@ set -e  # Exit on error
 echo "🚀 Starting ComfyUI installation and model downloads..."
 
 # Define base directories
-BASE_DIR="/workspace/ComfyUI"
-MODELS_DIR="$BASE_DIR/models"
+BASE_DIR="/workspace"
+MODELS_DIR="$BASE_DIR/ComfyUI/models"
 LORA_DIR="$MODELS_DIR/loras"
 CHECKPOINT_DIR="$MODELS_DIR/checkpoints"
 ULTRALYTICS_DIR="$MODELS_DIR/ultralytics/segm"
 
-# Create necessary directories
-mkdir -p "$LORA_DIR/characters" "$LORA_DIR/styles" "$CHECKPOINT_DIR" "$ULTRALYTICS_DIR"
-
 # Install ComfyUI if not installed
-if [ ! -d "$BASE_DIR" ]; then
+if [ ! -d "$BASE_DIR/ComfyUI" ]; then
     echo "📥 Cloning ComfyUI..."
     git clone https://github.com/comfyanonymous/ComfyUI.git "$BASE_DIR"
 else
     echo "✅ ComfyUI already installed."
 fi
 
-# Install ComfyUI-Manager
-if [ ! -d "$BASE_DIR/custom_nodes/ComfyUI-Manager" ]; then
+# Install ComfyUI-Manager if not installed
+if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/ComfyUI-Manager" ]; then
     echo "📥 Cloning ComfyUI-Manager..."
-    git clone https://github.com/ltdrdata/ComfyUI-Manager.git "$BASE_DIR/custom_nodes/ComfyUI-Manager"
+    git clone https://github.com/ltdrdata/ComfyUI-Manager.git "$BASE_DIR/ComfyUI/custom_nodes"
 else
     echo "✅ ComfyUI-Manager already installed."
 fi
+
+# Create necessary directories after ComfyUI is cloned
+mkdir -p "$LORA_DIR/characters" "$LORA_DIR/styles" "$CHECKPOINT_DIR" "$ULTRALYTICS_DIR"
 
 # Function to download files if they don't exist
 download_model() {
