@@ -1,107 +1,192 @@
 #!/bin/bash
 
-set -e  # Exit on error
+source /venv/main/bin/activate
+COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
-echo "🚀 Starting ComfyUI installation and model downloads..."
+# Packages are installed after nodes so we can fix them...
+APT_INSTALL="sudo apt-get install -y"
 
-# Define base directories
-BASE_DIR="/workspace"
-MODELS_DIR="$BASE_DIR/ComfyUI/models"
-LORA_DIR="$MODELS_DIR/loras"
-CHECKPOINT_DIR="$MODELS_DIR/checkpoints"
-ULTRALYTICS_DIR="$MODELS_DIR/ultralytics/segm"
+APT_PACKAGES=(
+    #"package-1"
+    #"package-2"
+)
 
-# Install ComfyUI if not installed
-if [ ! -d "$BASE_DIR/ComfyUI/.git" ]; then
-    echo "📥 Cloning ComfyUI..."
-    git clone https://github.com/comfyanonymous/ComfyUI.git "$BASE_DIR/ComfyUI"
-else
-    echo "✅ ComfyUI already installed."
-fi
+PIP_PACKAGES=(
+    #"package-1"
+    #"package-2"
+)
 
-# Install ComfyUI-Manager if not installed
-if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyui-manager/.git" ]; then
-    echo "📥 Cloning ComfyUI-Manager..."
-    git clone https://github.com/ltdrdata/ComfyUI-Manager.git "$BASE_DIR/ComfyUI/custom_nodes/comfyui-manager"
-else
-    echo "✅ ComfyUI-Manager already installed."
-fi
+NODES=(
+    "https://github.com/ltdrdata/ComfyUI-Manager"
+    "https://github.com/rgthree/rgthree-comfy"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
+    "https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes"
+)
 
-# Create necessary directories after ComfyUI is cloned
-mkdir -p "$LORA_DIR/characters" "$LORA_DIR/styles" "$CHECKPOINT_DIR" "$ULTRALYTICS_DIR"
+WORKFLOWS=(
 
-# Function to download files if they don't exist
-download_model() {
-    local url=$1
-    local folder=$2
-    local filename=$(basename $(wget --content-disposition --quiet --spider --server-response "$url" 2>&1 | awk '/Content-Disposition/ {print $NF}'))
-    
-    if [ ! -f "$folder/$filename" ]; then
-        echo "⬇️ Downloading: $filename to $folder"
-        wget --content-disposition -P "$folder" "$url" || { echo "❌ Failed to download: $filename"; exit 1; }
-    else
-        echo "✅ Already exists: $folder/$filename"
+)
+
+CHECKPOINT_MODELS=(
+    "https://civitai.com/api/download/models/1379960?token=b3351d12861914cf2757bce4b93f33fe"
+)
+
+LORA_CHARACTERS=(
+    "https://civitai.com/api/download/models/1453689?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1451050?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1245593?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1593973?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1593945?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1593987?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1594005?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1593929?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1372788?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1247539?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1098813?token=b3351d12861914cf2757bce4b93f33fe"
+)
+
+LORA_STYLES=(
+    "https://civitai.com/api/download/models/1570070?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1067949?token=b3351d12861914cf2757bce4b93f33fe"
+)
+
+ADETAILER_MODELS=(
+    "https://civitai.com/api/download/models/465360?token=b3351d12861914cf2757bce4b93f33fe"
+)
+
+### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
+
+function provisioning_start() {
+    provisioning_print_header
+    provisioning_get_apt_packages
+    provisioning_get_nodes
+    provisioning_get_pip_packages
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/checkpoints" \
+        "${CHECKPOINT_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/loras/characters" \
+        "${LORA_CHARACTERS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/loras/styles" \
+        "${LORA_STYLES[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/ultralytics/segm" \
+        "${ADETAILER_MODELS[@]}"
+    provisioning_print_end
+}
+
+function provisioning_get_apt_packages() {
+    if [[ ${#APT_PACKAGES[@]} -gt 0 ]]; then
+        sudo $APT_INSTALL ${APT_PACKAGES[@]}
     fi
 }
 
-# Download models
-echo "📥 Downloading Character LoRAs..."
-download_model "https://civitai.com/api/download/models/1453689?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1451050?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1245593?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1593973?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1593945?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1593987?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1594005?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1593929?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1372788?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1247539?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-download_model "https://civitai.com/api/download/models/1098813?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/characters"
-
-echo "📥 Downloading Style LoRAs..."
-download_model "https://civitai.com/api/download/models/1570070?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/styles"
-download_model "https://civitai.com/api/download/models/1067949?token=b3351d12861914cf2757bce4b93f33fe" "$LORA_DIR/styles"
-
-echo "📥 Downloading Checkpoints..."
-download_model "https://civitai.com/api/download/models/1379960?token=b3351d12861914cf2757bce4b93f33fe" "$CHECKPOINT_DIR"
-
-echo "📥 Downloading ADetailer Model..."
-download_model "https://civitai.com/api/download/models/465360?token=b3351d12861914cf2757bce4b93f33fe" "$ULTRALYTICS_DIR"
-
-# Install dependencies for ComfyUI if not already installed
-echo "📦 Installing dependencies..."
-pip install -r "$BASE_DIR/ComfyUI/requirements.txt"
-
-# Clone the necessary custom node repositories if not already cloned
-echo "📥 Cloning additional custom nodes..."
-
-if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-pact/.git" ]; then
-    git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack.git "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-pact"
-fi
-
-if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-subpack/.git" ]; then
-    git clone https://github.com/ltdrdata/ComfyUI-Impact-Subpack.git "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-subpack"
-fi
-
-if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyroll-studio/.git" ]; then
-    git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes.git "$BASE_DIR/ComfyUI/custom_nodes/comfyroll-studio"
-fi
-
-if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/rgthree/.git" ]; then
-    git clone https://github.com/rgthree/rgthree-comfy.git "$BASE_DIR/ComfyUI/custom_nodes/rgthree"
-fi
-
-# Install dependencies for the additional custom nodes (if any)
-echo "📦 Installing dependencies for additional custom nodes..."
-for repo in comfyui-impact-pact comfyui-impact-subpack rgthree; do
-    if [ -f "$BASE_DIR/ComfyUI/custom_nodes/$repo/requirements.txt" ]; then
-        pip install -r "$BASE_DIR/ComfyUI/custom_nodes/$repo/requirements.txt"
-    else
-        echo "⚠️ No requirements.txt found for $repo, skipping installation."
+function provisioning_get_pip_packages() {
+    if [[ ${#PIP_PACKAGES[@]} -gt 0 ]]; then
+        pip install --no-cache-dir ${PIP_PACKAGES[@]}
     fi
-done
+}
 
-# Start ComfyUI in the background
-echo "🚀 Starting ComfyUI..."
-cd "$BASE_DIR/ComfyUI"
-python main.py --listen &
+function provisioning_get_nodes() {
+    for repo in "${NODES[@]}"; do
+        dir="${repo##*/}"
+        path="${COMFYUI_DIR}custom_nodes/${dir}"
+        requirements="${path}/requirements.txt"
+        if [[ -d $path ]]; then
+            if [[ ${AUTO_UPDATE,,} != "false" ]]; then
+                printf "Updating node: %s...\n" "${repo}"
+                ( cd "$path" && git pull )
+                if [[ -e $requirements ]]; then
+                   pip install --no-cache-dir -r "$requirements"
+                fi
+            fi
+        else
+            printf "Downloading node: %s...\n" "${repo}"
+            git clone "${repo}" "${path}" --recursive
+            if [[ -e $requirements ]]; then
+                pip install --no-cache-dir -r "${requirements}"
+            fi
+        fi
+    done
+}
+
+function provisioning_get_files() {
+    if [[ ${#@} -lt 2 ]]; then return 1; fi
+    
+    dir="$1"
+    mkdir -p "$dir"
+    shift
+    arr=("$@")
+    printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
+    for url in "${arr[@]}"; do
+        printf "Downloading: %s\n" "${url}"
+        provisioning_download "${url}" "${dir}"
+        printf "\n"
+    done
+}
+
+function provisioning_print_header() {
+    printf "\n##############################################\n#                                            #\n#          Provisioning container            #\n#                                            #\n#         This will take some time           #\n#                                            #\n# Your container will be ready on completion #\n#                                            #\n##############################################\n\n"
+}
+
+function provisioning_print_end() {
+    printf "\nProvisioning complete:  Application will start now\n\n"
+}
+
+function provisioning_has_valid_hf_token() {
+    [[ -n "$HF_TOKEN" ]] || return 1
+    url="https://huggingface.co/api/whoami-v2"
+
+    response=$(curl -o /dev/null -s -w "%{http_code}" -X GET "$url" \
+        -H "Authorization: Bearer $HF_TOKEN" \
+        -H "Content-Type: application/json")
+
+    # Check if the token is valid
+    if [ "$response" -eq 200 ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function provisioning_has_valid_civitai_token() {
+    [[ -n "$CIVITAI_TOKEN" ]] || return 1
+    url="https://civitai.com/api/v1/models?hidden=1&limit=1"
+
+    response=$(curl -o /dev/null -s -w "%{http_code}" -X GET "$url" \
+        -H "Authorization: Bearer $CIVITAI_TOKEN" \
+        -H "Content-Type: application/json")
+
+    # Check if the token is valid
+    if [ "$response" -eq 200 ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Download from $1 URL to $2 file path
+function provisioning_download() {
+    if [[ -n $HF_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
+        auth_token="$HF_TOKEN"
+    elif [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
+        auth_token="$CIVITAI_TOKEN"
+    else
+        # Handle case when no valid token is found
+        echo "No valid token found for the download."
+        return 1
+    fi
+    
+    if [[ -n $auth_token ]]; then
+        wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    else
+        wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    fi
+}
+
+# Allow user to disable provisioning if they started with a script they didn't want
+if [[ ! -f /.noprovisioning ]]; then
+    provisioning_start
+fi
