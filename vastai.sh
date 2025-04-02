@@ -12,17 +12,17 @@ CHECKPOINT_DIR="$MODELS_DIR/checkpoints"
 ULTRALYTICS_DIR="$MODELS_DIR/ultralytics/segm"
 
 # Install ComfyUI if not installed
-if [ ! -d "$BASE_DIR/ComfyUI" ]; then
+if [ ! -d "$BASE_DIR/ComfyUI/.git" ]; then
     echo "📥 Cloning ComfyUI..."
-    git clone https://github.com/comfyanonymous/ComfyUI.git "$BASE_DIR"
+    git clone https://github.com/comfyanonymous/ComfyUI.git "$BASE_DIR/ComfyUI"
 else
     echo "✅ ComfyUI already installed."
 fi
 
 # Install ComfyUI-Manager if not installed
-if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/ComfyUI-Manager" ]; then
+if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyui-manager/.git" ]; then
     echo "📥 Cloning ComfyUI-Manager..."
-    git clone https://github.com/ltdrdata/ComfyUI-Manager.git "$BASE_DIR/ComfyUI/custom_nodes"
+    git clone https://github.com/ltdrdata/ComfyUI-Manager.git "$BASE_DIR/ComfyUI/custom_nodes/comfyui-manager"
 else
     echo "✅ ComfyUI-Manager already installed."
 fi
@@ -38,7 +38,7 @@ download_model() {
     
     if [ ! -f "$folder/$filename" ]; then
         echo "⬇️ Downloading: $filename to $folder"
-        wget --content-disposition -P "$folder" "$url"
+        wget --content-disposition -P "$folder" "$url" || { echo "❌ Failed to download: $filename"; exit 1; }
     else
         echo "✅ Already exists: $folder/$filename"
     fi
@@ -68,4 +68,40 @@ download_model "https://civitai.com/api/download/models/1379960?token=b3351d1286
 echo "📥 Downloading ADetailer Model..."
 download_model "https://civitai.com/api/download/models/465360?token=b3351d12861914cf2757bce4b93f33fe" "$ULTRALYTICS_DIR"
 
-echo "✅ Setup complete: ComfyUI, ComfyUI-Manager, and model downloads finished."
+# Install dependencies for ComfyUI if not already installed
+echo "📦 Installing dependencies..."
+pip install -r "$BASE_DIR/ComfyUI/requirements.txt"
+
+# Clone the necessary custom node repositories if not already cloned
+echo "📥 Cloning additional custom nodes..."
+
+if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-pact/.git" ]; then
+    git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack.git "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-pact"
+fi
+
+if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-subpack/.git" ]; then
+    git clone https://github.com/ltdrdata/ComfyUI-Impact-Subpack.git "$BASE_DIR/ComfyUI/custom_nodes/comfyui-impact-subpack"
+fi
+
+if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/comfyroll-studio/.git" ]; then
+    git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes.git "$BASE_DIR/ComfyUI/custom_nodes/comfyroll-studio"
+fi
+
+if [ ! -d "$BASE_DIR/ComfyUI/custom_nodes/rgthree/.git" ]; then
+    git clone https://github.com/rgthree/rgthree-comfy.git "$BASE_DIR/ComfyUI/custom_nodes/rgthree"
+fi
+
+# Install dependencies for the additional custom nodes (if any)
+echo "📦 Installing dependencies for additional custom nodes..."
+for repo in comfyui-impact-pact comfyui-impact-subpack rgthree; do
+    if [ -f "$BASE_DIR/ComfyUI/custom_nodes/$repo/requirements.txt" ]; then
+        pip install -r "$BASE_DIR/ComfyUI/custom_nodes/$repo/requirements.txt"
+    else
+        echo "⚠️ No requirements.txt found for $repo, skipping installation."
+    fi
+done
+
+# Start ComfyUI in the background
+echo "🚀 Starting ComfyUI..."
+cd "$BASE_DIR/ComfyUI"
+python main.py --listen &
