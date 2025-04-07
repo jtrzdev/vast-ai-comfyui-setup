@@ -3,19 +3,17 @@
 source /venv/main/bin/activate
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
-# Packages are installed after nodes so we can fix them...
-
-APT_PACKAGES=(
+APT_PACKAGES=( 
     #"package-1"
     #"package-2"
 )
 
-PIP_PACKAGES=(
+PIP_PACKAGES=( 
     #"package-1"
     #"package-2"
 )
 
-NODES=(
+NODES=( 
     "https://github.com/ltdrdata/ComfyUI-Manager"
     "https://github.com/rgthree/rgthree-comfy"
     "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
@@ -23,15 +21,14 @@ NODES=(
     "https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes"
 )
 
-WORKFLOWS=(
-
+WORKFLOWS=( 
 )
 
-CHECKPOINT_MODELS=(
+CHECKPOINT_MODELS=( 
     "https://civitai.com/api/download/models/1379960?token=$CIVITAI_TOKEN"
 )
 
-LORA_CHARACTERS=(
+LORA_CHARACTERS=( 
     "https://civitai.com/api/download/models/1453689?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1451050?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1245593?token=$CIVITAI_TOKEN"
@@ -45,16 +42,15 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1098813?token=$CIVITAI_TOKEN"
 )
 
-LORA_STYLES=(
+LORA_STYLES=( 
     "https://civitai.com/api/download/models/1570070?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1067949?token=$CIVITAI_TOKEN"
 )
 
-ADETAILER_MODELS=(
+ADETAILER_MODELS=( 
     "https://civitai.com/api/download/models/465360?token=$CIVITAI_TOKEN"
 )
 
-### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
 function provisioning_start() {
     provisioning_print_header
@@ -136,21 +132,8 @@ function provisioning_print_end() {
 
 # Download from $1 URL to $2 file path
 function provisioning_download() {
-    if [[ -n $HF_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
-        auth_token="$HF_TOKEN"
-    elif [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
-        auth_token="$CIVITAI_TOKEN"
-    else
-        # Handle case when no valid token is found
-        echo "No valid token found for the download."
-        return 1
-    fi
-    
-    if [[ -n $auth_token ]]; then
-        wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
-    else
-        wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
-    fi
+    # Use simplified wget without headers or authentication
+    wget --content-disposition "$1" -P "$2"
 }
 
 # Allow user to disable provisioning if they started with a script they didn't want
