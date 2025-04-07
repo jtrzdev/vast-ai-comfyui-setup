@@ -41,17 +41,17 @@ CHECKPOINT_MODELS=(
 )
 
 LORA_CHARACTERS=( 
+    "https://civitai.com/api/download/models/1565120?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/61541?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1559149?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1559132?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1559178?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1559358?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1559222?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1295249?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1453689?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1451050?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/221626?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1245593?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1593973?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1593945?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1593987?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1594005?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1593929?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1372788?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1247539?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1098813?token=$CIVITAI_TOKEN"
 )
 
 LORA_STYLES=( 
