@@ -19,6 +19,18 @@ NODES=(
     "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
     "https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes"
+    "https://github.com/ai-shizuka/ComfyUI-tbox"
+    "https://github.com/alt-key-project/comfyui-dream-project"
+    "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes"
+    "https://github.com/FizzleDorf/ComfyUI_FizzNodes"
+    "https://github.com/Gourieff/ComfyUI-ReActor"
+    "https://github.com/TinyTerra/ComfyUI_tinyterraNodes"
+    "https://github.com/chrisgoringe/cg-use-everywhere"
+    "https://github.com/storyicon/comfyui_segment_anything"
+    "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
+    "https://github.com/kijai/ComfyUI-KJNodes"
+    "https://github.com/WASasquatch/was-node-suite-comfyui"
+    "https://github.com/Fannovel16/comfyui_controlnet_aux"
 )
 
 WORKFLOWS=( 
@@ -47,6 +59,21 @@ LORA_STYLES=(
     "https://civitai.com/api/download/models/1067949?token=$CIVITAI_TOKEN"
 )
 
+LORA_CLOTHING=(
+    "https://civitai.com/api/download/models/1257965?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1307299?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1533931?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1525419?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1533873?token=$CIVITAI_TOKEN"
+)
+
+
+LORA_CONCEPT=(
+    "https://civitai.com/api/download/models/1571734?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1388229?token=$CIVITAI_TOKEN"
+
+)
+
 ADETAILER_MODELS=( 
     "https://civitai.com/api/download/models/465360?token=$CIVITAI_TOKEN"
 )
@@ -66,6 +93,12 @@ function provisioning_start() {
     provisioning_get_files \
         "${COMFYUI_DIR}/models/loras/styles" \
         "${LORA_STYLES[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/loras/clothing" \
+        "${LORA_CLOTHING[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/loras/concept" \
+        "${LORA_CONCEPT[@]}"
     provisioning_get_files \
         "${COMFYUI_DIR}/models/ultralytics/segm" \
         "${ADETAILER_MODELS[@]}"
