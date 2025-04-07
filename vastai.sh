@@ -4,7 +4,6 @@ source /venv/main/bin/activate
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
 # Packages are installed after nodes so we can fix them...
-APT_INSTALL="sudo apt-get install -y"
 
 APT_PACKAGES=(
     #"package-1"
@@ -29,30 +28,30 @@ WORKFLOWS=(
 )
 
 CHECKPOINT_MODELS=(
-    "https://civitai.com/api/download/models/1379960?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1379960?token=$CIVITAI_TOKEN"
 )
 
 LORA_CHARACTERS=(
-    "https://civitai.com/api/download/models/1453689?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1451050?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1245593?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1593973?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1593945?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1593987?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1594005?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1593929?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1372788?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1247539?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1098813?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1453689?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1451050?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1245593?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1593973?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1593945?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1593987?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1594005?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1593929?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1372788?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1247539?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1098813?token=$CIVITAI_TOKEN"
 )
 
 LORA_STYLES=(
-    "https://civitai.com/api/download/models/1570070?token=b3351d12861914cf2757bce4b93f33fe"
-    "https://civitai.com/api/download/models/1067949?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/1570070?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1067949?token=$CIVITAI_TOKEN"
 )
 
 ADETAILER_MODELS=(
-    "https://civitai.com/api/download/models/465360?token=b3351d12861914cf2757bce4b93f33fe"
+    "https://civitai.com/api/download/models/465360?token=$CIVITAI_TOKEN"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -133,38 +132,6 @@ function provisioning_print_header() {
 
 function provisioning_print_end() {
     printf "\nProvisioning complete:  Application will start now\n\n"
-}
-
-function provisioning_has_valid_hf_token() {
-    [[ -n "$HF_TOKEN" ]] || return 1
-    url="https://huggingface.co/api/whoami-v2"
-
-    response=$(curl -o /dev/null -s -w "%{http_code}" -X GET "$url" \
-        -H "Authorization: Bearer $HF_TOKEN" \
-        -H "Content-Type: application/json")
-
-    # Check if the token is valid
-    if [ "$response" -eq 200 ]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-function provisioning_has_valid_civitai_token() {
-    [[ -n "$CIVITAI_TOKEN" ]] || return 1
-    url="https://civitai.com/api/v1/models?hidden=1&limit=1"
-
-    response=$(curl -o /dev/null -s -w "%{http_code}" -X GET "$url" \
-        -H "Authorization: Bearer $CIVITAI_TOKEN" \
-        -H "Content-Type: application/json")
-
-    # Check if the token is valid
-    if [ "$response" -eq 200 ]; then
-        return 0
-    else
-        return 1
-    fi
 }
 
 # Download from $1 URL to $2 file path
