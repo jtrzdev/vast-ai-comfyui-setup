@@ -65,6 +65,7 @@ LORA_CLOTHING=(
     "https://civitai.com/api/download/models/1533931?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1525419?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1533873?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1586336?token=$CIVITAI_TOKEN"
 )
 
 
