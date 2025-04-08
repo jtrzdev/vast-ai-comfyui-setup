@@ -31,6 +31,17 @@ NODES=(
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/WASasquatch/was-node-suite-comfyui"
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
+    "https://github.com/cardenluo/ComfyUI-Apt_Preset"
+    "https://github.com/jakechai/ComfyUI-JakeUpgrade"
+    "https://github.com/jamesWalker55/comfyui-various"
+    "https://github.com/mav-rik/facerestore_cf"
+    "https://github.com/BadCafeCode/masquerade-nodes-comfyui"
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
+    "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+    "https://github.com/jags111/efficiency-nodes-comfyui"
+    "https://github.com/chflame163/ComfyUI_LayerStyle"
+    "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
+    "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
 )
 
 WORKFLOWS=( 
