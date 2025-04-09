@@ -47,8 +47,8 @@ NODES=(
 WORKFLOWS=( 
 )
 
-CHECKPOINT_MODELS=( 
-    "https://civitai.com/api/download/models/1379960?token=$CIVITAI_TOKEN"
+CHECKPOINT_MODELS=(
+    "https://civitai.com/api/download/models/1512379?token=$CIVITAI_TOKEN"
 )
 
 LORA_CHARACTERS=( 
@@ -65,9 +65,11 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1245593?token=$CIVITAI_TOKEN"
 )
 
-LORA_STYLES=( 
-    "https://civitai.com/api/download/models/1570070?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1067949?token=$CIVITAI_TOKEN"
+LORA_STYLES=(
+    "https://civitai.com/api/download/models/998850?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1385235?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1388229?token=$CIVITAI_TOKEN"    
+    "https://civitai.com/api/download/models/1401771?token=$CIVITAI_TOKEN"
 )
 
 LORA_CLOTHING=(
@@ -82,7 +84,6 @@ LORA_CLOTHING=(
 
 LORA_CONCEPT=(
     "https://civitai.com/api/download/models/1571734?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1388229?token=$CIVITAI_TOKEN"
 
 )
 
