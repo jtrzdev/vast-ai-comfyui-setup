@@ -123,7 +123,7 @@ function provisioning_start() {
         "${COMFYUI_DIR}/models/ultralytics/segm" \
         "${ADETAILER_MODELS[@]}"
     provisioning_get_files \
-        "${COMFYUI_DIR}/models/sam" \
+        "${COMFYUI_DIR}/models/sams" \
         "${SAM_MODELS[@]}"
     provisioning_print_end
 }
