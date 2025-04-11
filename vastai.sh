@@ -63,6 +63,7 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1453689?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/221626?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1245593?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/83770?token=$CIVITAI_TOKEN"
 )
 
 LORA_STYLES=(
@@ -84,13 +85,19 @@ LORA_CLOTHING=(
 
 LORA_CONCEPT=(
     "https://civitai.com/api/download/models/1571734?token=$CIVITAI_TOKEN"
-
+    "https://civitai.com/api/download/models/1547356?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1168401?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/140535?token=$CIVITAI_TOKEN"
 )
 
 ADETAILER_MODELS=( 
     "https://civitai.com/api/download/models/465360?token=$CIVITAI_TOKEN"
 )
 
+
+SAM_MODELS=(
+    "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
+)
 
 function provisioning_start() {
     provisioning_print_header
@@ -115,6 +122,9 @@ function provisioning_start() {
     provisioning_get_files \
         "${COMFYUI_DIR}/models/ultralytics/segm" \
         "${ADETAILER_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/sam" \
+        "${SAM_MODELS[@]}"
     provisioning_print_end
 }
 
