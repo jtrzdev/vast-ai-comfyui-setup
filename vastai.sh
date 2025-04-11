@@ -44,9 +44,6 @@ NODES=(
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
 )
 
-WORKFLOWS=( 
-)
-
 CHECKPOINT_MODELS=(
     "https://civitai.com/api/download/models/1512379?token=$CIVITAI_TOKEN"
 )
@@ -59,11 +56,23 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1559178?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1559358?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1559222?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1295249?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1453689?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/221626?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1245593?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/83770?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1389554?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1389565?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1352203?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1352197?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1352192?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1352176?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1352138?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1339370?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1339366?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1339368?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1330640?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1330636?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1330633?token=$CIVITAI_TOKEN"
 )
 
 LORA_STYLES=(
@@ -82,7 +91,6 @@ LORA_CLOTHING=(
     "https://civitai.com/api/download/models/1586336?token=$CIVITAI_TOKEN"
 )
 
-
 LORA_CONCEPT=(
     "https://civitai.com/api/download/models/1571734?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1547356?token=$CIVITAI_TOKEN"
@@ -93,7 +101,6 @@ LORA_CONCEPT=(
 ADETAILER_MODELS=( 
     "https://civitai.com/api/download/models/465360?token=$CIVITAI_TOKEN"
 )
-
 
 SAM_MODELS=(
     "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
