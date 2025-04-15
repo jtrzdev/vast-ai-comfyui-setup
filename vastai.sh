@@ -106,6 +106,27 @@ SAM_MODELS=(
     "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
 )
 
+#change blob/main to resolve/main for hugging face
+#original link https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/blob/main/diffusion_pytorch_model.safetensors
+DIFFUSION_MODELS=(
+    "https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/diffusion_pytorch_model.safetensors"
+)
+
+
+#original link for (clip vision, text encoder, and vae for wan2.1): https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/tree/main/split_files
+CLIP_VISION_MODELS=(
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision_h.safetensors"
+)
+
+TEXT_ENCODER_MODELS=(
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
+)
+
+VAE_MODELS=(
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/wan_2.1_vae.safetensors"
+)
+
+
 function provisioning_start() {
     provisioning_print_header
     provisioning_get_apt_packages
@@ -132,6 +153,18 @@ function provisioning_start() {
     provisioning_get_files \
         "${COMFYUI_DIR}/models/sams" \
         "${SAM_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/clip_vision" \
+        "${CLIP_VISION_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/text_encoders" \
+        "${TEXT_ENCODER_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/vae" \
+        "${VAE_MODELS[@]}"
     provisioning_print_end
 }
 
