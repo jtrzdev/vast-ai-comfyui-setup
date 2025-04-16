@@ -115,17 +115,26 @@ DIFFUSION_MODELS=(
 
 #original link for (clip vision, text encoder, and vae for wan2.1): https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/tree/main/split_files
 CLIP_VISION_MODELS=(
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision_h.safetensors"
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors"
 )
 
 TEXT_ENCODER_MODELS=(
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
 )
 
 VAE_MODELS=(
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/wan_2.1_vae.safetensors"
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors"
 )
 
+#FLUX.1-dev-ControlNet-Union-Pro
+#original link: https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/blob/main/diffusion_pytorch_model.safetensors
+#FLUX.1-dev-Controlnet-Union
+#original link: https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/blob/main/diffusion_pytorch_model.safetensors
+CONTROLNET_MODELS=(
+    "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors"
+    "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors"
+    "https://civitai.com/api/download/models/1480637?token=$CIVITAI_TOKEN"
+)
 
 function provisioning_start() {
     provisioning_print_header
@@ -165,6 +174,9 @@ function provisioning_start() {
     provisioning_get_files \
         "${COMFYUI_DIR}/models/vae" \
         "${VAE_MODELS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/controlnet" \
+        "${CONTROLNET_MODELS[@]}"
     provisioning_print_end
 }
 
@@ -228,18 +240,9 @@ function provisioning_print_end() {
 
 # Download from $1 URL to $2 file path
 function provisioning_download() {
-    url="$1"
-    dest="$2"
-
-    if [[ "$url" == *"huggingface.co"* ]]; then
-        filename=$(basename "$url")
-        echo "Using curl for Hugging Face: $filename"
-        curl -L -A "Mozilla/5.0" "$url" -o "$dest/$filename"
-    else
-        # Civitai and others
-        wget --content-disposition "$url" -P "$dest"
-    fi
-}
+     # Use simplified wget without headers or authentication
+     wget --content-disposition "$1" -P "$2"
+ }
 
 
 # Allow user to disable provisioning if they started with a script they didn't want
