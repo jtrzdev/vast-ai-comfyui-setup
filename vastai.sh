@@ -228,9 +228,19 @@ function provisioning_print_end() {
 
 # Download from $1 URL to $2 file path
 function provisioning_download() {
-    # Use simplified wget without headers or authentication
-    wget --content-disposition "$1" -P "$2"
+    url="$1"
+    dest="$2"
+
+    if [[ "$url" == *"huggingface.co"* ]]; then
+        filename=$(basename "$url")
+        echo "Using curl for Hugging Face: $filename"
+        curl -L -A "Mozilla/5.0" "$url" -o "$dest/$filename"
+    else
+        # Civitai and others
+        wget --content-disposition "$url" -P "$dest"
+    fi
 }
+
 
 # Allow user to disable provisioning if they started with a script they didn't want
 if [[ ! -f /.noprovisioning ]]; then
