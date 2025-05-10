@@ -1,6 +1,9 @@
 #!/bin/bash
 
 source /venv/main/bin/activate
+
+python -m pip install --upgrade comfyui-frontend-package
+
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
 APT_PACKAGES=( 
