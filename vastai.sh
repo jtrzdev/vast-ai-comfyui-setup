@@ -90,6 +90,7 @@ LORA_STYLES=(
     "https://civitai.com/api/download/models/1385235?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1388229?token=$CIVITAI_TOKEN"    
     "https://civitai.com/api/download/models/1401771?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/136749?token=$CIVITAI_TOKEN"
 )
 
 LORA_CLOTHING=(
@@ -141,9 +142,9 @@ VAE_MODELS=(
 #FLUX.1-dev-Controlnet-Union
 #original link: https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/blob/main/diffusion_pytorch_model.safetensors
 CONTROLNET_MODELS=(
-    "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors"
-    "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors"
-    "https://civitai.com/api/download/models/1480637?token=$CIVITAI_TOKEN"
+    #"https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors"
+    #"https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors"
+    #"https://civitai.com/api/download/models/1480637?token=$CIVITAI_TOKEN"
 )
 
 function provisioning_start() {
