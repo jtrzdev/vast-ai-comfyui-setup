@@ -76,6 +76,13 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1330640?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1330636?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1330633?token=$CIVITAI_TOKEN"
+    
+    "https://civitai.com/api/download/models/1607079?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1380884?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1380921?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1381003?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1405207?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1448250?token=$CIVITAI_TOKEN"
 )
 
 LORA_STYLES=(
@@ -112,21 +119,21 @@ SAM_MODELS=(
 #change blob/main to resolve/main for hugging face
 #original link https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/blob/main/diffusion_pytorch_model.safetensors
 DIFFUSION_MODELS=(
-    "https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/diffusion_pytorch_model.safetensors"
+    #"https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/diffusion_pytorch_model.safetensors"
 )
 
 
 #original link for (clip vision, text encoder, and vae for wan2.1): https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/tree/main/split_files
 CLIP_VISION_MODELS=(
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors"
+    #"https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors"
 )
 
 TEXT_ENCODER_MODELS=(
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
+    #"https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
 )
 
 VAE_MODELS=(
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors"
+    #"https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors"
 )
 
 #FLUX.1-dev-ControlNet-Union-Pro
