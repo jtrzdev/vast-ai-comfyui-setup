@@ -49,6 +49,8 @@ NODES=(
 
 CHECKPOINT_MODELS=(
     "https://civitai.com/api/download/models/1512379?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1916865?token=$CIVITAI_TOKEN"    
+    
 )
 
 LORA_CHARACTERS=( 
