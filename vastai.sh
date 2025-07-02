@@ -102,6 +102,12 @@ LORA_CLOTHING=(
     "https://civitai.com/api/download/models/1525419?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1533873?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1586336?token=$CIVITAI_TOKEN"
+    
+    "https://civitai.com/api/download/models/1789416?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1826319?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1830709?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1904614?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1904658?token=$CIVITAI_TOKEN"
 )
 
 LORA_CONCEPT=(
