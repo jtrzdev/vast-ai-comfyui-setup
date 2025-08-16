@@ -49,7 +49,8 @@ NODES=(
 
 CHECKPOINT_MODELS=(
     "https://civitai.com/api/download/models/1512379?token=$CIVITAI_TOKEN"
-    "https://civitai.com/api/download/models/1916865?token=$CIVITAI_TOKEN"    
+    "https://civitai.com/api/download/models/1916865?token=$CIVITAI_TOKEN" 
+    "https://civitai.com/api/download/models/1634588?token=$CIVITAI_TOKEN"   
     
 )
 
@@ -85,6 +86,9 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1381003?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1405207?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1448250?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1713037?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1713050?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1713071?token=$CIVITAI_TOKEN"
 )
 
 LORA_STYLES=(
