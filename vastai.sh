@@ -89,6 +89,16 @@ LORA_CHARACTERS=(
     "https://civitai.com/api/download/models/1713037?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1713050?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1713071?token=$CIVITAI_TOKEN"
+
+    
+    
+    "https://civitai.com/api/download/models/1330634?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/2095986?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/2094312?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1866302?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/2119240?token=$CIVITAI_TOKEN"
+    "https://civitai.com/api/download/models/1900036?token=$CIVITAI_TOKEN"
+    
 )
 
 LORA_STYLES=(
