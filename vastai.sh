@@ -11,15 +11,14 @@ APT_PACKAGES=(
     #"package-2"
 )
 
-PIP_PACKAGES=( 
-    #use "timm" if want to use latest
-    "timm==1.0.7"
+PIP_PACKAGES=(
     #"package-1"
     #"package-2"
 )
 
 NODES=( 
     "https://github.com/ltdrdata/ComfyUI-Manager"
+    "https://github.com/cubiq/ComfyUI_essentials"
     "https://github.com/rgthree/rgthree-comfy"
     "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
