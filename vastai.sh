@@ -13,7 +13,7 @@ APT_PACKAGES=(
 
 PIP_PACKAGES=( 
     #use "timm" if want to use latest
-    "timm==1.0.19"
+    "timm==1.0.7"
     #"package-1"
     #"package-2"
 )
