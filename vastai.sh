@@ -147,6 +147,8 @@ SAM_MODELS=(
 #original link https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/blob/main/diffusion_pytorch_model.safetensors
 DIFFUSION_MODELS=(
     #"https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/diffusion_pytorch_model.safetensors"
+
+    "https://huggingface.co/YarvixPA/FLUX.1-Fill-dev-GGUF/resolve/154e0cd504b5765212c9c1c677a800d5a923c356/flux1-fill-dev-Q8_0.gguf"
 )
 
 
