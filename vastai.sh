@@ -156,10 +156,20 @@ CLIP_VISION_MODELS=(
 
 TEXT_ENCODER_MODELS=(
     #"https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
+
+    #flux
+    "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"
+    "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
+    #sd
+    "https://huggingface.co/Comfy-Org/stable-diffusion-3.5-fp8/resolve/main/text_encoders/clip_l.safetensors"
+    "https://huggingface.co/Comfy-Org/stable-diffusion-3.5-fp8/resolve/main/text_encoders/t5xxl_fp8_e4m3fn.safetensors"
 )
 
 VAE_MODELS=(
     #"https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors"
+
+    #flux
+    "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors"
 )
 
 #FLUX.1-dev-ControlNet-Union-Pro
@@ -275,10 +285,25 @@ function provisioning_print_end() {
 }
 
 # Download from $1 URL to $2 file path
+# function provisioning_download() {
+#      # Use simplified wget without headers or authentication
+#      wget --content-disposition "$1" -P "$2"
+#  }
 function provisioning_download() {
-     # Use simplified wget without headers or authentication
-     wget --content-disposition "$1" -P "$2"
- }
+    url="$1"
+    outdir="$2"
+
+    # If it's a Hugging Face URL and HF_TOKEN is set, add auth header
+    if [[ "$url" == *"huggingface.co"* ]] && [[ -n "$HF_TOKEN" ]]; then
+        echo "Downloading from Hugging Face with token..."
+        wget --header="Authorization: Bearer $HF_TOKEN" \
+             --content-disposition "$url" -P "$outdir"
+    else
+        # Normal download (CivitAI, GitHub releases, etc.)
+        wget --content-disposition "$url" -P "$outdir"
+    fi
+}
+
 
 
 # Allow user to disable provisioning if they started with a script they didn't want
