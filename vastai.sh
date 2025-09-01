@@ -47,6 +47,7 @@ NODES=(
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
     "https://github.com/kijai/ComfyUI-segment-anything-2"
     "https://github.com/kijai/ComfyUI-Florence2"
+    "https://github.com/city96/ComfyUI-GGUF"
 )
 
 CHECKPOINT_MODELS=(
