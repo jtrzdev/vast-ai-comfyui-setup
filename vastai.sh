@@ -267,17 +267,49 @@ function provisioning_get_nodes() {
     done
 }
 
+# function provisioning_get_files() {
+#     if [[ ${#@} -lt 2 ]]; then return 1; fi
+    
+#     dir="$1"
+#     mkdir -p "$dir"
+#     shift
+#     arr=("$@")
+#     printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
+#     for url in "${arr[@]}"; do
+#         printf "Downloading: %s\n" "${url}"
+#         provisioning_download "${url}" "${dir}"
+#         printf "\n"
+#     done
+# }
+
 function provisioning_get_files() {
     if [[ ${#@} -lt 2 ]]; then return 1; fi
     
-    dir="$1"
-    mkdir -p "$dir"
+    base_dir="$1"
     shift
     arr=("$@")
-    printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
+    printf "Downloading %s model(s) into %s...\n" "${#arr[@]}" "$base_dir"
+
     for url in "${arr[@]}"; do
-        printf "Downloading: %s\n" "${url}"
-        provisioning_download "${url}" "${dir}"
+        # Default subdir = "misc"
+        subdir="misc"
+
+        # Try to guess subdir from URL
+        if [[ "$url" == *"flux"* ]]; then
+            subdir="flux"
+        elif [[ "$url" == *"stable-diffusion"* || "$url" == *"sd"* ]]; then
+            subdir="sd"
+        elif [[ "$url" == *"schnell"* ]]; then
+            subdir="schnell"
+        elif [[ "$url" == *"dev"* ]]; then
+            subdir="dev"
+        fi
+
+        outdir="${base_dir}/${subdir}"
+        mkdir -p "$outdir"
+
+        printf "Downloading: %s -> %s\n" "${url}" "$outdir"
+        provisioning_download "${url}" "${outdir}"
         printf "\n"
     done
 }
