@@ -45,12 +45,15 @@ NODES=(
     "https://github.com/chflame163/ComfyUI_LayerStyle"
     "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
+    "https://github.com/kijai/ComfyUI-segment-anything-2"
+    "https://github.com/kijai/ComfyUI-Florence2"
 )
 
 CHECKPOINT_MODELS=(
     "https://civitai.com/api/download/models/1512379?token=$CIVITAI_TOKEN"
     "https://civitai.com/api/download/models/1916865?token=$CIVITAI_TOKEN" 
-    "https://civitai.com/api/download/models/1634588?token=$CIVITAI_TOKEN"   
+    "https://civitai.com/api/download/models/1634588?token=$CIVITAI_TOKEN" 
+    "https://civitai.com/api/download/models/176425?token=$CIVITAI_TOKEN"  
     
 )
 
