@@ -252,15 +252,21 @@ function provisioning_get_nodes() {
             if [[ ${AUTO_UPDATE,,} != "false" ]]; then
                 printf "Updating node: %s...\n" "${repo}"
                 ( cd "$path" && git pull )
+                # if [[ -e $requirements ]]; then
+                #    pip install --no-cache-dir -r "$requirements"
+                # fi
                 if [[ -e $requirements ]]; then
-                   pip install --no-cache-dir -r "$requirements"
+                    pip install --upgrade --force-reinstall --no-cache-dir -r "$requirements"
                 fi
             fi
         else
             printf "Downloading node: %s...\n" "${repo}"
             git clone "${repo}" "${path}" --recursive
+            # if [[ -e $requirements ]]; then
+            #     pip install --no-cache-dir -r "${requirements}"
+            # fi
             if [[ -e $requirements ]]; then
-                pip install --no-cache-dir -r "${requirements}"
+                pip install --upgrade --force-reinstall --no-cache-dir -r "$requirements"
             fi
         fi
     done
@@ -281,6 +287,38 @@ function provisioning_get_nodes() {
 #     done
 # }
 
+# function provisioning_get_files() {
+#     if [[ ${#@} -lt 2 ]]; then return 1; fi
+    
+#     base_dir="$1"
+#     shift
+#     arr=("$@")
+#     printf "Downloading %s model(s) into %s...\n" "${#arr[@]}" "$base_dir"
+
+#     for url in "${arr[@]}"; do
+#         # Default subdir = "misc"
+#         subdir="misc"
+
+#         # Try to guess subdir from URL
+#         if [[ "$url" == *"flux"* ]]; then
+#             subdir="flux"
+#         elif [[ "$url" == *"stable-diffusion"* || "$url" == *"sd"* ]]; then
+#             subdir="sd"
+#         elif [[ "$url" == *"schnell"* ]]; then
+#             subdir="schnell"
+#         elif [[ "$url" == *"dev"* ]]; then
+#             subdir="dev"
+#         fi
+
+#         outdir="${base_dir}/${subdir}"
+#         mkdir -p "$outdir"
+
+#         printf "Downloading: %s -> %s\n" "${url}" "$outdir"
+#         provisioning_download "${url}" "${outdir}"
+#         printf "\n"
+#     done
+# }
+
 function provisioning_get_files() {
     if [[ ${#@} -lt 2 ]]; then return 1; fi
     
@@ -290,8 +328,7 @@ function provisioning_get_files() {
     printf "Downloading %s model(s) into %s...\n" "${#arr[@]}" "$base_dir"
 
     for url in "${arr[@]}"; do
-        # Default subdir = "misc"
-        subdir="misc"
+        subdir=""  # default = none
 
         # Try to guess subdir from URL
         if [[ "$url" == *"flux"* ]]; then
@@ -304,14 +341,20 @@ function provisioning_get_files() {
             subdir="dev"
         fi
 
-        outdir="${base_dir}/${subdir}"
-        mkdir -p "$outdir"
+        # Decide output dir (if subdir matched, append; otherwise base_dir only)
+        if [[ -n "$subdir" ]]; then
+            outdir="${base_dir}/${subdir}"
+        else
+            outdir="${base_dir}"
+        fi
 
+        mkdir -p "$outdir"
         printf "Downloading: %s -> %s\n" "${url}" "$outdir"
         provisioning_download "${url}" "${outdir}"
         printf "\n"
     done
 }
+
 
 function provisioning_print_header() {
     printf "\n##############################################\n#                                            #\n#          Provisioning container            #\n#                                            #\n#         This will take some time           #\n#                                            #\n# Your container will be ready on completion #\n#                                            #\n##############################################\n\n"
