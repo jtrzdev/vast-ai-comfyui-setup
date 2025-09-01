@@ -12,6 +12,8 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=( 
+    #use "timm" if want to use latest
+    "timm==1.0.19"
     #"package-1"
     #"package-2"
 )
@@ -173,6 +175,7 @@ VAE_MODELS=(
 
     #flux
     "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors"
+    "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors"
 )
 
 #FLUX.1-dev-ControlNet-Union-Pro
