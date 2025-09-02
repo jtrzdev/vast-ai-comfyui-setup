@@ -1,10 +1,29 @@
 #!/bin/bash
 
-source /venv/main/bin/activate
+# source /venv/main/bin/activate
 
+# python -m pip install --upgrade comfyui-frontend-package
+
+# COMFYUI_DIR=${WORKSPACE}/ComfyUI
+
+# --- Universal venv handling (Vast.ai + QuickPod) ---
+if [ -d "/venv/main" ]; then
+    echo "[INFO] Activating Vast.ai venv..."
+    source /venv/main/bin/activate
+elif [ -d "/workspace/venv" ]; then
+    echo "[INFO] Activating QuickPod venv..."
+    source /workspace/venv/bin/activate
+else
+    echo "[INFO] Creating QuickPod venv..."
+    python3 -m venv /workspace/venv
+    source /workspace/venv/bin/activate
+fi
+
+# Install ComfyUI frontend package
 python -m pip install --upgrade comfyui-frontend-package
 
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
+
 
 APT_PACKAGES=( 
     #"package-1"
