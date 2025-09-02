@@ -10,11 +10,11 @@
 if [ -d "/venv/main" ]; then
     echo "[INFO] Activating Vast.ai venv..."
     source /venv/main/bin/activate
-elif [ -d "/workspace/venv" ]; then
+elif [ -d "/venv" ]; then
     echo "[INFO] Activating QuickPod venv..."
-    source /workspace/venv/bin/activate
+    source /venv/bin/activate
 else
-    echo "[INFO] Creating QuickPod venv..."
+    echo "[INFO] Creating new venv in /workspace/venv..."
     python3 -m venv /workspace/venv
     source /workspace/venv/bin/activate
 fi
@@ -22,8 +22,14 @@ fi
 # Install ComfyUI frontend package
 python -m pip install --upgrade comfyui-frontend-package
 
-COMFYUI_DIR=${WORKSPACE}/ComfyUI
-
+# --- Detect ComfyUI directory (Vast vs QuickPod) ---
+if [ -d "/app" ] && [ -f "/main.py" ]; then
+    echo "[INFO] Detected QuickPod layout, using root as COMFYUI_DIR"
+    COMFYUI_DIR="/"
+else
+    echo "[INFO] Detected Vast layout, using ${WORKSPACE}/ComfyUI as COMFYUI_DIR"
+    COMFYUI_DIR="${WORKSPACE}/ComfyUI"
+fi
 
 APT_PACKAGES=( 
     #"package-1"
